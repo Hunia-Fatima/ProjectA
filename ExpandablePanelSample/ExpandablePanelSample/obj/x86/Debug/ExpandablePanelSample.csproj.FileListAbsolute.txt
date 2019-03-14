@@ -1,0 +1,8 @@
+E:\VS Projects\ExpandablePanelSample\ExpandablePanelSample\bin\Debug\ExpandablePanelSample.exe
+E:\VS Projects\ExpandablePanelSample\ExpandablePanelSample\bin\Debug\ExpandablePanelSample.pdb
+E:\VS Projects\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.frmAbout.resources
+E:\VS Projects\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.frmMain.resources
+E:\VS Projects\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.Properties.Resources.resources
+E:\VS Projects\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.csproj.GenerateResource.Cache
+E:\VS Projects\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.exe
+E:\VS Projects\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.pdb
