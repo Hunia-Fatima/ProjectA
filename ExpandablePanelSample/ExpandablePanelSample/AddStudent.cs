@@ -12,6 +12,7 @@ namespace ExpandablePanelSample
 {
     public partial class AddStudent : Form
     {
+        public int EditId = 0;
         public AddStudent()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace ExpandablePanelSample
 
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            string Query = "SELECT p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', s.RegistrationNo as 'Registration No' FROM Person p INNER JOIN Student s ON p.Id = s.Id";
+            string Query = "SELECT p.Id, p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', s.RegistrationNo as 'Registration No' FROM Person p INNER JOIN Student s ON p.Id = s.Id";
             SqlDataAdapter sda = new SqlDataAdapter();
             sda.SelectCommand = new SqlCommand(Query, connection);
             DataTable data = new DataTable();
@@ -32,6 +33,7 @@ namespace ExpandablePanelSample
             BindingSource src = new BindingSource();
             src.DataSource = data;
             dgvStudent.DataSource = src;
+            this.dgvStudent.Columns["Id"].Visible = false;
 
             var EditButton = new DataGridViewButtonColumn();
             EditButton.Name = "dataGridViewDeleteButton";
@@ -123,7 +125,7 @@ namespace ExpandablePanelSample
                 SqlCommand cmd2 = new SqlCommand(query2, connection);
                 cmd2.ExecuteNonQuery();
 
-                string Query = "SELECT p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', s.RegistrationNo as 'Registration No' FROM Person p INNER JOIN Student s ON p.Id = s.Id";
+                string Query = "SELECT p.Id, p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', s.RegistrationNo as 'Registration No' FROM Person p INNER JOIN Student s ON p.Id = s.Id";
                 SqlDataAdapter sda1 = new SqlDataAdapter();
                 sda1.SelectCommand = new SqlCommand(Query, connection);
                 DataTable data1 = new DataTable();
@@ -131,6 +133,7 @@ namespace ExpandablePanelSample
                 BindingSource src = new BindingSource();
                 src.DataSource = data1;
                 dgvStudent.DataSource = src;
+                this.dgvStudent.Columns["Id"].Visible = false;
 
 
 
@@ -166,14 +169,14 @@ namespace ExpandablePanelSample
         {
             if (e.ColumnIndex == 0)
             {
-                string[] names = dgvStudent.Rows[e.RowIndex].Cells[2].Value.ToString().Split(' ');
+                string[] names = dgvStudent.Rows[e.RowIndex].Cells[3].Value.ToString().Split(' ');
                 txtFName.Text = names[0];
                 txtLName.Text = names[1];
-                txtEmail.Text = dgvStudent.Rows[e.RowIndex].Cells[3].Value.ToString();
-                txtContact.Text = dgvStudent.Rows[e.RowIndex].Cells[4].Value.ToString();
-                dtpDOB.Value = Convert.ToDateTime(dgvStudent.Rows[e.RowIndex].Cells[5].Value.ToString());
-                txtRegNo.Text = dgvStudent.Rows[e.RowIndex].Cells[6].Value.ToString();
-                
+                txtEmail.Text = dgvStudent.Rows[e.RowIndex].Cells[4].Value.ToString();
+                txtContact.Text = dgvStudent.Rows[e.RowIndex].Cells[5].Value.ToString();
+                dtpDOB.Value = Convert.ToDateTime(dgvStudent.Rows[e.RowIndex].Cells[6].Value.ToString());
+                txtRegNo.Text = dgvStudent.Rows[e.RowIndex].Cells[7].Value.ToString();
+                EditId = Convert.ToInt32(dgvStudent.Rows[e.RowIndex].Cells[2].Value);
 
 
             }
@@ -189,39 +192,23 @@ namespace ExpandablePanelSample
                 {
                     SqlConnection connection = new SqlConnection(connectionString);
                     connection.Open();
-                    string query = "Delete From Student where RegistrationNo = '" + dgvStudent.Rows[e.RowIndex].Cells[6].Value.ToString() + "'";
-                    MessageBox.Show(dgvStudent.Rows[e.RowIndex].Cells[6].Value.ToString());
+                    string query = "Delete From Student where RegistrationNo = '" + dgvStudent.Rows[e.RowIndex].Cells[7].Value.ToString() + "'";
                     SqlCommand cmd1 = new SqlCommand(query, connection);
                     cmd1.ExecuteNonQuery();
 
-                    query = "Delete From Person where FirstName + ' ' + LastName = '" + dgvStudent.Rows[e.RowIndex].Cells[2].Value.ToString() + "' and Email = '" + dgvStudent.Rows[e.RowIndex].Cells[3].Value.ToString() + "'and Contact = '" + dgvStudent.Rows[e.RowIndex].Cells[4].Value.ToString() + "' ";
+                    query = "Delete From Person where FirstName + ' ' + LastName = '" + dgvStudent.Rows[e.RowIndex].Cells[3].Value.ToString() + "' and Email = '" + dgvStudent.Rows[e.RowIndex].Cells[4].Value.ToString() + "'and Contact = '" + dgvStudent.Rows[e.RowIndex].Cells[5].Value.ToString() + "' ";
                     cmd1 = new SqlCommand(query, connection);
                     cmd1.ExecuteNonQuery();
                     DataTable data = new DataTable();
 
-                    string Query = "SELECT p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', s.RegistrationNo as 'Registration No' FROM Person p INNER JOIN Student s ON p.Id = s.Id";
+                    string Query = "SELECT p.Id, p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', s.RegistrationNo as 'Registration No' FROM Person p INNER JOIN Student s ON p.Id = s.Id";
                     SqlDataAdapter sda = new SqlDataAdapter();
                     sda.SelectCommand = new SqlCommand(Query, connection);
                     sda.Fill(data);
                     BindingSource src = new BindingSource();
                     src.DataSource = data;
                     dgvStudent.DataSource = src;
-
-                    var EditButton = new DataGridViewButtonColumn();
-                    EditButton.Name = "dataGridViewDeleteButton";
-                    EditButton.HeaderText = "Edit";
-                    EditButton.Text = "Edit";
-                    EditButton.UseColumnTextForButtonValue = true;
-                    this.dgvStudent.Columns.Add(EditButton);
-
-                    var deleteButton = new DataGridViewButtonColumn();
-                    deleteButton.Name = "dataGridViewDeleteButton";
-                    deleteButton.HeaderText = "Delete";
-                    deleteButton.Text = "Delete";
-                    deleteButton.UseColumnTextForButtonValue = true;
-                    this.dgvStudent.Columns.Add(deleteButton);
-
-
+                    this.dgvStudent.Columns["Id"].Visible = false;
 
                     MessageBox.Show("Data Deleted Successfully");
                 }
@@ -233,20 +220,21 @@ namespace ExpandablePanelSample
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
             DataTable data = new DataTable();
-            string query = "UPDATE Person SET FirstName = '" + txtFName.Text.ToString() + "',  LastName = '" + txtLName.Text.ToString() + "',Email = '" + txtEmail.Text.ToString() + "', Contact = '" + txtContact.Text.ToString() + "',DateOfBirth = '" + dtpDOB.Value + "'" ;
+            MessageBox.Show(EditId.ToString());
+            string query = "UPDATE Person SET FirstName = '" + txtFName.Text.ToString() + "',  LastName = '" + txtLName.Text.ToString() + "',Email = '" + txtEmail.Text.ToString() + "', Contact = '" + txtContact.Text.ToString() + "',DateOfBirth = '" + dtpDOB.Value + "'Where Id = '" + EditId + "'";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.ExecuteNonQuery();
-            query = "UPDATE Student SET RegistrationNo = '" + txtRegNo.Text.ToString() + "'";
+            query = "UPDATE Student SET RegistrationNo = '" + txtRegNo.Text.ToString() + "'Where Id = '" + EditId + "'";
             cmd = new SqlCommand(query, connection);
             cmd.ExecuteNonQuery();
-            string Query = "SELECT p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', s.RegistrationNo as 'Registration No' FROM Person p INNER JOIN Student s ON p.Id = s.Id";
+            string Query = "SELECT p.Id, p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', s.RegistrationNo as 'Registration No' FROM Person p INNER JOIN Student s ON p.Id = s.Id";
             SqlDataAdapter sda = new SqlDataAdapter();
             sda.SelectCommand = new SqlCommand(Query, connection);
             sda.Fill(data);
             BindingSource src = new BindingSource();
             src.DataSource = data;
             dgvStudent.DataSource = src;
-
+            this.dgvStudent.Columns["Id"].Visible = false;
             MessageBox.Show("Data updated succesfully");
 
         }

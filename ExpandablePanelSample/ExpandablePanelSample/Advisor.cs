@@ -12,6 +12,7 @@ namespace ExpandablePanelSample
 {
     public partial class Advisor : Form
     {
+        public int EditId = 0;
         public Advisor()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace ExpandablePanelSample
 
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            string Query = "SELECT p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', a.Designation, a.Salary FROM Person p INNER JOIN Advisor a ON p.Id = a.Id";
+            string Query = "SELECT p.Id, p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', a.Designation, a.Salary FROM Person p INNER JOIN Advisor a ON p.Id = a.Id";
             SqlDataAdapter sda = new SqlDataAdapter();
             sda.SelectCommand = new SqlCommand(Query, connection);
             DataTable data = new DataTable();
@@ -33,6 +34,7 @@ namespace ExpandablePanelSample
             BindingSource src = new BindingSource();
             src.DataSource = data;
             dgvAdvisor.DataSource = src;
+            this.dgvAdvisor.Columns["Id"].Visible = false;
 
             var EditButton = new DataGridViewButtonColumn();
             EditButton.Name = "dataGridViewDeleteButton";
@@ -134,14 +136,16 @@ namespace ExpandablePanelSample
                 string query2 = "INSERT INTO Advisor(Id,Designation,Salary) values('" + Id + "','" + DesignationId + "','" + Salary + "')";
                 SqlCommand cmd2 = new SqlCommand(query2, connection);
                 cmd2.ExecuteNonQuery();
-                string Query = "SELECT p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', a.Designation, a.Salary FROM Person p INNER JOIN Advisor a ON p.Id = a.Id";
+                string Query = "SELECT p.Id, p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', a.Designation, a.Salary FROM Person p INNER JOIN Advisor a ON p.Id = a.Id";
                 SqlDataAdapter sda1 = new SqlDataAdapter();
+                DataTable data1 = new DataTable();
                 sda1.SelectCommand = new SqlCommand(Query, connection);
-                sda1.Fill(data);
+                sda1.Fill(data1);
                 BindingSource src = new BindingSource();
-                src.DataSource = data;
+                src.DataSource = data1;
                 dgvAdvisor.DataSource = src;
-                
+                this.dgvAdvisor.Columns["Id"].Visible = false;
+
                 MessageBox.Show("data inserted successfully");
             }
         }
@@ -150,13 +154,14 @@ namespace ExpandablePanelSample
         {
             if (e.ColumnIndex == 0)
             {
-                string[] names = dgvAdvisor.Rows[e.RowIndex].Cells[2].Value.ToString().Split(' ');
+                string[] names = dgvAdvisor.Rows[e.RowIndex].Cells[3].Value.ToString().Split(' ');
                 txtFName.Text = names[0];
                 txtLName.Text = names[1];
-                txtEmail.Text = dgvAdvisor.Rows[e.RowIndex].Cells[3].Value.ToString();
-                txtContact.Text = dgvAdvisor.Rows[e.RowIndex].Cells[4].Value.ToString();
-                dtpDOB.Value = Convert.ToDateTime(dgvAdvisor.Rows[e.RowIndex].Cells[5].Value.ToString());
-                cmbDesignation.Text = dgvAdvisor.Rows[e.RowIndex].Cells[6].Value.ToString();
+                txtEmail.Text = dgvAdvisor.Rows[e.RowIndex].Cells[4].Value.ToString();
+                txtContact.Text = dgvAdvisor.Rows[e.RowIndex].Cells[5].Value.ToString();
+                dtpDOB.Value = Convert.ToDateTime(dgvAdvisor.Rows[e.RowIndex].Cells[6].Value.ToString());
+                cmbDesignation.Text = dgvAdvisor.Rows[e.RowIndex].Cells[7].Value.ToString();
+                EditId = Convert.ToInt32(dgvAdvisor.Rows[e.RowIndex].Cells[2].Value);
 
 
 
@@ -175,7 +180,7 @@ namespace ExpandablePanelSample
                     connection.Open();
 
 
-                    string Filter = "SELECT Id FROM Person Where FirstName + ' ' + LastName = '" + dgvAdvisor.Rows[e.RowIndex].Cells[2].Value.ToString() + "' and Email = '" + dgvAdvisor.Rows[e.RowIndex].Cells[3].Value.ToString() + "'";
+                    string Filter = "SELECT Id FROM Person Where FirstName + ' ' + LastName = '" + dgvAdvisor.Rows[e.RowIndex].Cells[3].Value.ToString() + "' and Email = '" + dgvAdvisor.Rows[e.RowIndex].Cells[4].Value.ToString() + "'";
                     SqlCommand cmd = new SqlCommand(Filter, connection);
                     SqlDataReader reader = cmd.ExecuteReader();
                     int PersonId = 0;
@@ -202,7 +207,7 @@ namespace ExpandablePanelSample
                     cmd1.ExecuteNonQuery();
                     DataTable data = new DataTable();
 
-                    string Query = "SELECT p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', a.Designation ,a.Salary FROM Person p INNER JOIN Advisor a ON p.Id = a.Id";
+                    string Query = "SELECT p.Id, p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', a.Designation ,a.Salary FROM Person p INNER JOIN Advisor a ON p.Id = a.Id";
                     SqlDataAdapter sda = new SqlDataAdapter();
                     sda.SelectCommand = new SqlCommand(Query, connection);
                     sda.Fill(data);
@@ -210,6 +215,7 @@ namespace ExpandablePanelSample
                     BindingSource src = new BindingSource();
                     src.DataSource = data;
                     dgvAdvisor.DataSource = src;
+                    this.dgvAdvisor.Columns["Id"].Visible = false;
 
                     var EditButton = new DataGridViewButtonColumn();
                     EditButton.Name = "dataGridViewDeleteButton";
@@ -275,13 +281,14 @@ namespace ExpandablePanelSample
             }
             reader.Close();
 
-            string query = "UPDATE Person SET FirstName = '" + txtFName.Text.ToString() + "',  LastName = '" + txtLName.Text.ToString() + "',Email = '" + txtEmail.Text.ToString() + "', Contact = '" + txtContact.Text.ToString() + "',DateOfBirth = '" + dtpDOB.Value + "'";
+            MessageBox.Show(EditId.ToString());
+            string query = "UPDATE Person SET FirstName = '" + txtFName.Text.ToString() + "',  LastName = '" + txtLName.Text.ToString() + "',Email = '" + txtEmail.Text.ToString() + "', Contact = '" + txtContact.Text.ToString() + "',DateOfBirth = '" + dtpDOB.Value + "'Where Id = '" + EditId + "'";
             cmd = new SqlCommand(query, connection);
             cmd.ExecuteNonQuery();
-            query = "UPDATE Advisor SET Designation = '" + DesignationId + "', Salary = '" + numSalary.Value+ "'";
+            query = "UPDATE Advisor SET Designation = '" + DesignationId + "', Salary = '" + numSalary.Value+ "'Where Id = '" + EditId + "'";
             cmd = new SqlCommand(query, connection);
             cmd.ExecuteNonQuery();
-            string Query = "SELECT p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', a.Designation, a.Salary FROM Person p INNER JOIN Advisor a ON p.Id = a.Id";
+            string Query = "SELECT p.Id, p.FirstName + ' ' + p.LastName as Name, p.Email, p.Contact, p.DateOfBirth as 'Date of Birth', a.Designation, a.Salary FROM Person p INNER JOIN Advisor a ON p.Id = a.Id";
             SqlDataAdapter sda = new SqlDataAdapter();
             sda.SelectCommand = new SqlCommand(Query, connection);
             sda.Fill(data);
@@ -289,6 +296,7 @@ namespace ExpandablePanelSample
             BindingSource src = new BindingSource();
             src.DataSource = data;
             dgvAdvisor.DataSource = src;
+            this.dgvAdvisor.Columns["Id"].Visible = false;
 
             MessageBox.Show("Data updated succesfully");
         }
