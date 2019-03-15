@@ -23,19 +23,12 @@ namespace ExpandablePanelSample
 
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            MessageBox.Show("Connection opened");
             string Query = "SELECT e.Name, e.TotalMarks, e.TotalWeightage FROM Evaluation e";
             SqlDataAdapter sda = new SqlDataAdapter();
             sda.SelectCommand = new SqlCommand(Query, connection);
             DataTable data = new DataTable();
             sda.Fill(data);
-            foreach (DataRow dataRow in data.Rows)
-            {
-                foreach (var item in dataRow.ItemArray)
-                {
-                    MessageBox.Show(item.ToString());
-                }
-            }
+
             BindingSource src = new BindingSource();
             src.DataSource = data;
             dgvEvaluation.DataSource = src;
@@ -58,7 +51,6 @@ namespace ExpandablePanelSample
 
         private void cmdAdd_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Add button Clicked");
             if (txtName.Text == "")
             {
                 lblNameError.Show();
@@ -81,7 +73,6 @@ namespace ExpandablePanelSample
                 int Weightage = Convert.ToInt32(NumWeightage.Value);
                 SqlConnection connection = new SqlConnection(connectionString);
                 connection.Open();
-                MessageBox.Show("Connection opened");
                 string query = "INSERT INTO Evaluation(Name, TotalMarks, TotalWeightage) values('" + Name + "','" + Marks + "','" + Weightage + "')";
                 SqlCommand cmd1 = new SqlCommand(query, connection);
                 cmd1.ExecuteNonQuery();
@@ -94,42 +85,41 @@ namespace ExpandablePanelSample
         {
             if (e.ColumnIndex == 0)
             {
-                MessageBox.Show("Editing");
                 txtName.Text = dgvEvaluation.Rows[e.RowIndex].Cells[2].Value.ToString();
                 NumMarks.Value= Convert.ToInt32(dgvEvaluation.Rows[e.RowIndex].Cells[3].Value.ToString());
                 NumWeightage.Value = Convert.ToInt32(dgvEvaluation.Rows[e.RowIndex].Cells[4].Value.ToString());
             }
             else if (e.ColumnIndex == 1)
             {
-                MessageBox.Show("Deleting");
-                SqlConnection connection = new SqlConnection(connectionString);
-                connection.Open();
-
-                MessageBox.Show(dgvEvaluation.Rows[e.RowIndex].Cells[2].Value.ToString());
-
-                string query = "Delete From Evaluation where Name = '" + dgvEvaluation.Rows[e.RowIndex].Cells[2].Value.ToString() + "' ";
-                MessageBox.Show(dgvEvaluation.Rows[e.RowIndex].Cells[2].Value.ToString());
-                SqlCommand cmd1 = new SqlCommand(query, connection);
-                cmd1.ExecuteNonQuery();
-                DataTable data = new DataTable();
-
-                string Query = "SELECT e.Name, e.TotalMarks, e.TotalWeightage FROM Evaluation e";
-                SqlDataAdapter sda = new SqlDataAdapter();
-                sda.SelectCommand = new SqlCommand(Query, connection);
-                sda.Fill(data);
-                foreach (DataRow dataRow in data.Rows)
+                bool allow = false;
+                DialogResult dialogResult = MessageBox.Show("Do you Want to Delete this entry", "Confirm", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    foreach (var item in dataRow.ItemArray)
-                    {
-                        MessageBox.Show(item.ToString());
-                    }
+                    allow = true;
                 }
-                BindingSource src = new BindingSource();
-                src.DataSource = data;
-                dgvEvaluation.DataSource = src;
+                if (allow)
+                {
+                    SqlConnection connection = new SqlConnection(connectionString);
+                    connection.Open();
+                    
+
+                    string query = "Delete From Evaluation where Name = '" + dgvEvaluation.Rows[e.RowIndex].Cells[2].Value.ToString() + "' ";
+                    SqlCommand cmd1 = new SqlCommand(query, connection);
+                    cmd1.ExecuteNonQuery();
+                    DataTable data = new DataTable();
+
+                    string Query = "SELECT e.Name, e.TotalMarks, e.TotalWeightage FROM Evaluation e";
+                    SqlDataAdapter sda = new SqlDataAdapter();
+                    sda.SelectCommand = new SqlCommand(Query, connection);
+                    sda.Fill(data);
+
+                    BindingSource src = new BindingSource();
+                    src.DataSource = data;
+                    dgvEvaluation.DataSource = src;
 
 
-                MessageBox.Show("Data Deleted Successfully");
+                    MessageBox.Show("Data Deleted Successfully");
+                }
             }
         }
 
@@ -141,19 +131,12 @@ namespace ExpandablePanelSample
             string query = "UPDATE Evaluation SET Name = '" + txtName.Text.ToString() + "',  TotalMarks = '" + NumMarks.Value + "',  TotalWeightage = '" + NumWeightage.Value + "'";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.ExecuteNonQuery();
-
-            MessageBox.Show("In Middle");
+            
             string Query = "SELECT e.Name, e.TotalMarks, e.TotalWeightage FROM Evaluation e";
             SqlDataAdapter sda = new SqlDataAdapter();
             sda.SelectCommand = new SqlCommand(Query, connection);
             sda.Fill(data);
-            foreach (DataRow dataRow in data.Rows)
-            {
-                foreach (var item in dataRow.ItemArray)
-                {
-                    MessageBox.Show(item.ToString());
-                }
-            }
+
             BindingSource src = new BindingSource();
             src.DataSource = data;
             dgvEvaluation.DataSource = src;

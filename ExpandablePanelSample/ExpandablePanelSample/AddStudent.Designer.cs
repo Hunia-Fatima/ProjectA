@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.cmdSave = new System.Windows.Forms.Button();
             this.lblRegNoError = new System.Windows.Forms.Label();
             this.lblRegNo = new System.Windows.Forms.Label();
             this.txtRegNo = new System.Windows.Forms.TextBox();
@@ -49,7 +50,6 @@
             this.lblFName = new System.Windows.Forms.Label();
             this.txtFName = new System.Windows.Forms.TextBox();
             this.dgvStudent = new System.Windows.Forms.DataGridView();
-            this.cmdSave = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudent)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +83,19 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(580, 377);
             this.pnlMain.TabIndex = 65;
+            this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
+            // 
+            // cmdSave
+            // 
+            this.cmdSave.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cmdSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmdSave.Location = new System.Drawing.Point(144, 330);
+            this.cmdSave.Name = "cmdSave";
+            this.cmdSave.Size = new System.Drawing.Size(180, 32);
+            this.cmdSave.TabIndex = 84;
+            this.cmdSave.Text = "Save Changes";
+            this.cmdSave.UseVisualStyleBackColor = true;
+            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // lblRegNoError
             // 
@@ -294,18 +307,6 @@
             this.dgvStudent.Size = new System.Drawing.Size(580, 149);
             this.dgvStudent.TabIndex = 66;
             this.dgvStudent.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStudent_CellContentClick_1);
-            // 
-            // cmdSave
-            // 
-            this.cmdSave.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cmdSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmdSave.Location = new System.Drawing.Point(144, 330);
-            this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(180, 32);
-            this.cmdSave.TabIndex = 84;
-            this.cmdSave.Text = "Save Changes";
-            this.cmdSave.UseVisualStyleBackColor = true;
-            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // AddStudent
             // 

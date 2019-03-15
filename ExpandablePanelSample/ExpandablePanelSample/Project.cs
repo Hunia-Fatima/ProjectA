@@ -21,19 +21,12 @@ namespace ExpandablePanelSample
 
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            MessageBox.Show("Connection opened");
             string Query = "SELECT p.Title, p.Description FROM Project p";
             SqlDataAdapter sda = new SqlDataAdapter();
             sda.SelectCommand = new SqlCommand(Query, connection);
             DataTable data = new DataTable();
             sda.Fill(data);
-            foreach (DataRow dataRow in data.Rows)
-            {
-                foreach (var item in dataRow.ItemArray)
-                {
-                    MessageBox.Show(item.ToString());
-                }
-            }
+
             BindingSource src = new BindingSource();
             src.DataSource = data;
             dgvProjects.DataSource = src;
@@ -58,7 +51,6 @@ namespace ExpandablePanelSample
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Add button Clicked");
             if (txtTitle.Text == "")
             {
                 lblTitleError.Show();
@@ -70,7 +62,6 @@ namespace ExpandablePanelSample
                 string Description = txtDescription.Text;
                 SqlConnection connection = new SqlConnection(connectionString);
                 connection.Open();
-                MessageBox.Show("Connection opened");
                 string query = "INSERT INTO Project(Title, Description) values('" + Title + "','" + Description  + "')";
                 SqlCommand cmd1 = new SqlCommand(query, connection);
                 cmd1.ExecuteNonQuery();
@@ -88,41 +79,40 @@ namespace ExpandablePanelSample
         {
             if (e.ColumnIndex == 0)
             {
-                MessageBox.Show("Editing");
                 txtTitle.Text = dgvProjects.Rows[e.RowIndex].Cells[2].Value.ToString();
                 txtDescription.Text = dgvProjects.Rows[e.RowIndex].Cells[3].Value.ToString();
             }
             else if (e.ColumnIndex == 1)
             {
-                MessageBox.Show("Deleting");
-                SqlConnection connection = new SqlConnection(connectionString);
-                connection.Open();
-
-                MessageBox.Show(dgvProjects.Rows[e.RowIndex].Cells[2].Value.ToString());
-
-                string query = "Delete From Project where Title = '" + dgvProjects.Rows[e.RowIndex].Cells[2].Value.ToString()+ "' ";
-                MessageBox.Show(dgvProjects.Rows[e.RowIndex].Cells[2].Value.ToString());
-                SqlCommand cmd1 = new SqlCommand(query, connection);
-                cmd1.ExecuteNonQuery();
-                DataTable data = new DataTable();
-
-                string Query = "SELECT p.Title, p.Description FROM Project p";
-                SqlDataAdapter sda = new SqlDataAdapter();
-                sda.SelectCommand = new SqlCommand(Query, connection);
-                sda.Fill(data);
-                foreach (DataRow dataRow in data.Rows)
+                bool allow = false;
+                DialogResult dialogResult = MessageBox.Show("Do you Want to Delete this entry", "Confirm", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    foreach (var item in dataRow.ItemArray)
-                    {
-                        MessageBox.Show(item.ToString());
-                    }
+                    allow = true;
                 }
-                BindingSource src = new BindingSource();
-                src.DataSource = data;
-                dgvProjects.DataSource = src;
+                if (allow)
+                {
+                    SqlConnection connection = new SqlConnection(connectionString);
+                    connection.Open();
+                    
+
+                    string query = "Delete From Project where Title = '" + dgvProjects.Rows[e.RowIndex].Cells[2].Value.ToString() + "' ";
+                    SqlCommand cmd1 = new SqlCommand(query, connection);
+                    cmd1.ExecuteNonQuery();
+                    DataTable data = new DataTable();
+
+                    string Query = "SELECT p.Title, p.Description FROM Project p";
+                    SqlDataAdapter sda = new SqlDataAdapter();
+                    sda.SelectCommand = new SqlCommand(Query, connection);
+                    sda.Fill(data);
+
+                    BindingSource src = new BindingSource();
+                    src.DataSource = data;
+                    dgvProjects.DataSource = src;
 
 
-                MessageBox.Show("Data Deleted Successfully");
+                    MessageBox.Show("Data Deleted Successfully");
+                }
             }
         }
 
@@ -138,13 +128,7 @@ namespace ExpandablePanelSample
             SqlDataAdapter sda = new SqlDataAdapter();
             sda.SelectCommand = new SqlCommand(Query, connection);
             sda.Fill(data);
-            foreach (DataRow dataRow in data.Rows)
-            {
-                foreach (var item in dataRow.ItemArray)
-                {
-                    MessageBox.Show(item.ToString());
-                }
-            }
+
             BindingSource src = new BindingSource();
             src.DataSource = data;
             dgvProjects.DataSource = src;

@@ -37,7 +37,7 @@ namespace ExpandablePanelSample
         {
             if (pnlMenuGroup1.Height == 25)
             {
-                pnlMenuGroup1.Height = (25 *5);
+                pnlMenuGroup1.Height = (25 *4);
                 btnMenuGroup1.Image = Properties.Resources.up;
             }
             else
@@ -96,12 +96,6 @@ namespace ExpandablePanelSample
             }
         }
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            StudentData frmChild = new StudentData();
-            frmChild.MdiParent = this;
-            frmChild.Show();
-        }
 
         private void button10_Click(object sender, EventArgs e)
         {

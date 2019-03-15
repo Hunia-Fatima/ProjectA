@@ -16,7 +16,6 @@ C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Relea
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Release\ExpandablePanelSample.Properties.Resources.resources
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Release\ExpandablePanelSample.csproj.GenerateResource.Cache
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Release\ExpandablePanelSample.AddStudent.resources
-C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Release\ExpandablePanelSample.StudentData.resources
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Release\ExpandablePanelSample.Advisor.resources
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Release\ExpandablePanelSample.Project.resources
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Release\ExpandablePanelSample.Evaluation.resources
