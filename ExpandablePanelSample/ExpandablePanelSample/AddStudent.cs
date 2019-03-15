@@ -135,6 +135,14 @@ namespace ExpandablePanelSample
                 dgvStudent.DataSource = src;
                 this.dgvStudent.Columns["Id"].Visible = false;
 
+                txtFName.Text = "";
+                txtLName.Text = "";
+                txtRegNo.Text = "";
+                txtContact.Text = "";
+                txtEmail.Text = "";
+                cmbGender.Text = "";
+                dtpDOB.Value = DateTime.Now;
+
 
 
                 MessageBox.Show("data inserted successfully");
@@ -235,6 +243,13 @@ namespace ExpandablePanelSample
             src.DataSource = data;
             dgvStudent.DataSource = src;
             this.dgvStudent.Columns["Id"].Visible = false;
+            txtFName.Text = "";
+            txtLName.Text = "";
+            txtRegNo.Text = "";
+            txtContact.Text = "";
+            txtEmail.Text = "";
+            cmbGender.Text = "";
+            dtpDOB.Value = DateTime.Now;
             MessageBox.Show("Data updated succesfully");
 
         }

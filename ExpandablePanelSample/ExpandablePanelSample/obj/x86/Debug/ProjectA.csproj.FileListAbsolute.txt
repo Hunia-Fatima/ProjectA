@@ -10,3 +10,15 @@ C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.Project.resources
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.Properties.Resources.resources
 C:\Users\HUNIA\Desktop\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ProjectA.csproj.GenerateResource.Cache
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.exe
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.pdb
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\bin\Debug\ExpandablePanelSample.exe
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\bin\Debug\ExpandablePanelSample.pdb
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ProjectA.csprojResolveAssemblyReference.cache
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.AddStudent.resources
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.Advisor.resources
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.Evaluation.resources
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.frmMain.resources
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.Project.resources
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ExpandablePanelSample.Properties.Resources.resources
+C:\Users\HUNIA\Desktop\ProjectA\ProjectA\ExpandablePanelSample\ExpandablePanelSample\obj\x86\Debug\ProjectA.csproj.GenerateResource.Cache

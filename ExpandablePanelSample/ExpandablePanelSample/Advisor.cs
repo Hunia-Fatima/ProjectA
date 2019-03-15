@@ -146,6 +146,15 @@ namespace ExpandablePanelSample
                 dgvAdvisor.DataSource = src;
                 this.dgvAdvisor.Columns["Id"].Visible = false;
 
+                txtFName.Text = "";
+                txtLName.Text = "";
+                cmbDesignation.Text = "";
+                txtContact.Text = "";
+                txtEmail.Text = "";
+                cmbGender.Text = "";
+                numSalary.Value = 0;
+                dtpDOB.Value = DateTime.Now;
+
                 MessageBox.Show("data inserted successfully");
             }
         }
@@ -297,6 +306,15 @@ namespace ExpandablePanelSample
             src.DataSource = data;
             dgvAdvisor.DataSource = src;
             this.dgvAdvisor.Columns["Id"].Visible = false;
+
+            txtFName.Text = "";
+            txtLName.Text = "";
+            cmbDesignation.Text = "";
+            txtContact.Text = "";
+            txtEmail.Text = "";
+            numSalary.Value = 0;
+            cmbGender.Text = "";
+            dtpDOB.Value = DateTime.Now;
 
             MessageBox.Show("Data updated succesfully");
         }
