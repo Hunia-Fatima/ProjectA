@@ -105,6 +105,7 @@
             this.button4.Text = "Add Evaluation Type";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // btnMenuGroup4
             // 
@@ -160,6 +161,7 @@
             this.button10.Text = "Add Project";
             this.button10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button10.UseVisualStyleBackColor = false;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // btnMenuGroup3
             // 
@@ -215,6 +217,7 @@
             this.button6.Text = "Add Advisors";
             this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // btnMenuGroup2
             // 

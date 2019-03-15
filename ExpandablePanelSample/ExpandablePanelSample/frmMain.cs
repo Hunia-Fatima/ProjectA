@@ -102,5 +102,26 @@ namespace ExpandablePanelSample
             frmChild.MdiParent = this;
             frmChild.Show();
         }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Project frmChild = new Project();
+            frmChild.MdiParent = this;
+            frmChild.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Evaluation frmChild = new Evaluation();
+            frmChild.MdiParent = this;
+            frmChild.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Advisor frmChild = new Advisor();
+            frmChild.MdiParent = this;
+            frmChild.Show();
+        }
     }
 }
