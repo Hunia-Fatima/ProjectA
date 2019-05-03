@@ -51,6 +51,31 @@ namespace ExpandablePanelSample
 
         private void button1_Click(object sender, EventArgs e)
         {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string Query = "SELECT p.Title, p.Description FROM Project p";
+            SqlDataAdapter sda = new SqlDataAdapter();
+            sda.SelectCommand = new SqlCommand(Query, connection);
+            DataTable data = new DataTable();
+            sda.Fill(data);
+
+            BindingSource src = new BindingSource();
+            src.DataSource = data;
+            dgvProjects.DataSource = src;
+
+            var EditButton = new DataGridViewButtonColumn();
+            EditButton.Name = "dataGridViewDeleteButton";
+            EditButton.HeaderText = "Edit";
+            EditButton.Text = "Edit";
+            EditButton.UseColumnTextForButtonValue = true;
+            this.dgvProjects.Columns.Add(EditButton);
+
+            var deleteButton = new DataGridViewButtonColumn();
+            deleteButton.Name = "dataGridViewDeleteButton";
+            deleteButton.HeaderText = "Delete";
+            deleteButton.Text = "Delete";
+            deleteButton.UseColumnTextForButtonValue = true;
+            this.dgvProjects.Columns.Add(deleteButton);
             if (txtTitle.Text == "")
             {
                 lblTitleError.Show();
@@ -60,11 +85,34 @@ namespace ExpandablePanelSample
             {
                 string Title = txtTitle.Text;
                 string Description = txtDescription.Text;
-                SqlConnection connection = new SqlConnection(connectionString);
+                connection = new SqlConnection(connectionString);
                 connection.Open();
                 string query = "INSERT INTO Project(Title, Description) values('" + Title + "','" + Description  + "')";
                 SqlCommand cmd1 = new SqlCommand(query, connection);
                 cmd1.ExecuteNonQuery();
+                Query = "SELECT p.Title, p.Description FROM Project p";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = new SqlCommand(Query, connection);
+                data = new DataTable();
+                sda.Fill(data);
+
+                src = new BindingSource();
+                src.DataSource = data;
+                dgvProjects.DataSource = src;
+
+                EditButton = new DataGridViewButtonColumn();
+                EditButton.Name = "dataGridViewDeleteButton";
+                EditButton.HeaderText = "Edit";
+                EditButton.Text = "Edit";
+                EditButton.UseColumnTextForButtonValue = true;
+                this.dgvProjects.Columns.Add(EditButton);
+
+                deleteButton = new DataGridViewButtonColumn();
+                deleteButton.Name = "dataGridViewDeleteButton";
+                deleteButton.HeaderText = "Delete";
+                deleteButton.Text = "Delete";
+                deleteButton.UseColumnTextForButtonValue = true;
+                this.dgvProjects.Columns.Add(deleteButton);
 
                 MessageBox.Show("Project has been inserted successfully");
             }
